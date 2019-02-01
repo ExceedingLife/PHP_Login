@@ -7,15 +7,13 @@
     <!-- BootStrap 4 CDN CSS external link -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <!-- Custom CSS Link -->
-    <link rel="stylesheet" href="css/main.css" />
-    <!-- Glyph Icons CSS -->
-    <link rel="stylesheet" href="css/glyphicon.css" />
+    <link rel="stylesheet" href="../css/main.css" />
 </head>
 <body>
   <header class="container-fluid text-center text-light py-4">
       <div>
           <div class="d-block">
-              <img id="headpic" class="rounded-circle" src="img/Andrew.JPG" />
+              <img id="headpic" class="rounded-circle" src="../img/Andrew.JPG" />
           </div>
           <div>
               <h1 class="header-text d-inline">PHP BootStrap4 Login - View Users</h1>
@@ -32,7 +30,8 @@
               <div class="col-md-12">
                   <div class="pb-2 mt-4 mb-2 border-bottom clearfix">
                       <h2 class="float-left">PHP Login View All Users</h2>
-                      <a class="btn btn-success float-right" href="register.php">Add New User</a>
+                      <a class="btn btn-danger float-right mx-2" href="register.php">Create User</a>
+                      <a class="btn btn-primary float-right mx-2" href="../index.php">Dashboard</a>
                   </div>
                   <?php
                         $sql = "SELECT * FROM users";

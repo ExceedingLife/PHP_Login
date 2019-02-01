@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ALL);
+ini_set("display_errors", "1");
+
     //mySQL database config
 require_once "config.php";
 
@@ -8,20 +11,12 @@ $nameerror = $usernameerror = $passworderror = $password2error = "";
 
 // Process data when the form is submitted.
 if($_SERVER["REQUEST_METHOD"] == "POST") {
-
-    //Name check
-    if(empty(trim($_POST["name"]))) {
-        $nameerror = "Please enter a name.";
-    } else {
-        $name = trim($_POST["name"]);
-    }
     // Validate 'Username'
     if(empty(trim($_POST["username"]))) {
         $usernameerror = "Please enter a Username.";
     } else {
         // Prepare a SELECT statement.
         $sql = "SELECT userid FROM users WHERE username = :username";
-
         if($stmt = $pdoConn->prepare($sql)) {
             // Bind variables to prepared statement as parameters
             $stmt->bindParam(":username", $param_username, PDO::PARAM_STR);
@@ -41,6 +36,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         // Close $stmt
         unset($stmt);
     }
+    //Name check
+    if(empty(trim($_POST["name"]))) {
+        $nameerror = "Please enter a name.";
+    } else {
+        $name = trim($_POST["name"]);
+    }
     // Validate Password
     if(empty(trim($_POST["password"]))) {
         $passworderror = "Please enter a password.";
@@ -54,42 +55,51 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $password2error = "Please confirm your password";
     } else {
         $pass2 = trim($_POST["password2"]);
-        if(empty($password2error) && ($password != $pass2)) {
+        if(empty($passworderror) && ($password != $pass2)) {
             $password2error = "Passwords <b>DID NOT</b> match.";
         }
     }
+
     //Check for inputs on form to continue.
     // Error checks or input checks.
-    if(empty($name) && empty($username) && empty($password) && empty($password2)) {
+    if(!empty($name) && !empty($username) && !empty($password) && !empty($pass2)) {
         // Prepare SELECT statement
-        $sql = "INSERT INTO  users (name, username, password) " .
+        $sql = "INSERT INTO  users(name, username, password) " .
                "VALUES (:name, :username, :password)";
-        if($stmt = $pdoConn->prepare($sql)) {
+
+         if($stmt = $pdoConn->prepare($sql)) {
             // Bind variables to prepared statement as parameters
             $stmt->bindParam(":name", $param_name, PDO::PARAM_STR);
             $stmt->bindParam(":username", $param_username, PDO::PARAM_STR);
             $stmt->bindParam(":password", $param_pass, PDO::PARAM_STR);
             // Set parameters
-            $para_name = $name;
+            $param_name = $name;
             $param_username = $username;
             $param_pass = password_hash($password, PASSWORD_DEFAULT);
             // attempt to execute the prepared Statement
-            if($stmt->execute()){
+            if($stmt->execute()) {
+                // Determine if Success or Error
                 header("Location: ../index.php");
+                //echo "all good";
             } else {
                 echo "Something went wrong with INSERT";
             }
-
+        } else {
+            echo "Other side of prepare.";
         }
         // Close Statement
         unset($stmt);
+    } else {
+         $errormsg = '<div class="alert alert-danger alert-dismissible fade show" role="alert"><button type="button" ' .
+                     'class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>' .
+                     'All fields are required to continue</div>';
     }
     // Close connection
     unset($pdoConn);
 }
 
-
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -113,11 +123,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
     </header>
-
     <section class="text-center" id="section-content">
-        <div id="divAlert" class="container rounded"></div>
+        <div id="divAlert" class="container rounded">
+            <?php
+                if(isset($errorMsg)) {
+                    echo $errorMsg;
+                }
+            ?>
+        </div>
         <div class="container rounded contentdiv" id="contentdiv">
-
             <div class="row">
                 <div class="col-md-6 mx-auto">
                     <div class="card card-body">
@@ -130,36 +144,37 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <?php if(isset($nameerror)) {
                                         echo '<span id="error"><b>' . $nameerror . '</b></span>';
                                     } ?>
-                                    <input class="form-control input-lg" placeholder="Your Name"
-                                           id="txtName" name="name" type="text">
+                                    <input class="form-control input-lg <?php echo (!empty($nameerror)) ? 'is-invalid'
+                                    : ''; ?>" placeholder="Your Name" id="txtName" name="name" type="text">
                                 </div>
                                 <div class="form-group">
                                     <?php if(isset($usernameerror)) {
                                         echo '<span id="error"><b>' . $usernameerror . '</b></span>';
                                     }?>
-                                    <input class="form-control input-lg" placeholder="Username"
-                                           id="txtUsername" name="username" type="text">
+                                    <input class="form-control input-lg <?php echo (!empty($usernameerror)) ? 'is-invalid'
+                                    : ''; ?>" placeholder="Username" id="txtUsername" name="username" type="text">
                                 </div>
                                 <div class="form-group">
                                     <?php if(isset($passworderror)) {
                                         echo '<span id="error"><b>' . $passworderror . '</b></span>';
                                     }?>
-                                    <input class="form-control input-lg" placeholder="Password"
+                                    <input class="form-control input-lg <?php echo (!empty($passworderror)) ? 'is-invalid'
+                                    : ''; ?>" placeholder="Password"
                                            id="txtPassword" name="password" type="password">
                                 </div>
                                 <div class="form-group">
                                     <?php if(isset($password2error)) {
                                         echo '<span id="error"><b>' . $password2error . '</b></span>';
                                     }?>
-                                    <input class="form-control input-lg" placeholder="Confirm Password"
+                                    <input class="form-control input-lg <?php echo (!empty($password2error)) ? 'is-invalid'
+                                    : ''; ?>" placeholder="Confirm Password"
                                            id="txtPassword2" name="password2" type="password">
                                 </div>
                                 <div class="form-check">
                                     <input name="form-check-input d-inline" type="checkbox" id="chkTerms" required>
-                                    <label class="form-check-label small d-inline" for="chkTerms">I read and agree to the <a href="#">terms of service</a></label>
+                                    <label class="form-check-label small d-inline" for="chkTerms">I read and agree to the <a id="terms" href="JavaScript:termsAccept()">terms of service</a></label>
                                 </div>
-
-                                <input class="btn btn-lg btn-primary btn-block" id="btnRegister" name="register" value="Sign Me Up" type="submit" />
+                                <input class="btn btn-lg btn-primary btn-block" id="btnRegister" name="submit" value="Sign Up" type="submit" />
                                 <a class="btn btn-lg btn-danger btn-block" id="btnCancel" href="../index.php">Cancel</a>
                             </fieldset>
                         </form>

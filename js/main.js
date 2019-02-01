@@ -12,7 +12,7 @@ $(document).ready(function() {
     //$(formsignin).on("submit", function() {
 
         if(validateSubmit()){
-            alert("success");
+            //alert("success");
             var successText = "Congratulations you have logged in";
             var alertSuccess = '<div class="alert alert-success alert-dismissible fade show" role="alert"><button type="button" ' +
                                'class="close" data-dismiss="alert" aria-label="Close" aria-hidden="true">&times;</button>';

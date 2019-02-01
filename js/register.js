@@ -8,6 +8,8 @@
 
 $(document).ready(function () {
 
+    //$("#terms").on("click", termsAccept());
+
     $("#formregister").submit(function(e) {
         //if(!$("#chkTerms").is(":checked")) {
 
@@ -89,4 +91,9 @@ function clearControls() {
     $("#txtUsername").val();
     $("#txtPassword").val();
     $("#txtPassword2").val();
+}
+
+function termsAccept() {
+    alert("You have agreed to the terms of PHP_Login"+"\n"+
+          "Some terms for a checkbox click.");
 }

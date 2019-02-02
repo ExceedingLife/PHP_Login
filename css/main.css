@@ -53,6 +53,9 @@ header .header-text {
 #section-content h2 {
     color: #510f0f;
 }
+.error {
+  color: #510f0f;
+}
 form {
     font-size: 1rem;
     font-weight: 400;
@@ -95,3 +98,7 @@ form {
     background-color: #ededed;
     border: .2rem solid #510f0f;
 }
+/* View.php
+.table {
+    background-color: #dedede !important;
+}*/

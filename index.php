@@ -1,5 +1,6 @@
 <?php
-error_reporting(E_ALL & ~E_NOTICE);
+error_reporting(E_ALL);
+ini_set("display_errors", "1");
   // Initialize SESSION
     session_start();
   // Check if logged in ifso sent to Welcome.php
@@ -30,7 +31,7 @@ error_reporting(E_ALL & ~E_NOTICE);
       // Validate credentials.
       if(empty($usernameerror) && empty($passworderror)) {
           // Prepare a SELECT statement.
-          $sql = "SELECT userid, username, password FROM users WHERE " .
+          $sql = "SELECT userid, name, username, password FROM users WHERE " .
                  "username = :username";
           if($stmt = $pdoConn->prepare($sql)) {
               // bind variables to the prepared statement as parameters
@@ -48,13 +49,16 @@ error_reporting(E_ALL & ~E_NOTICE);
                           $name = $row["name"];
                           if(password_verify($password, $password_hashed)) {
                               // Password correct start new session
-                              session_start();
-                              // store data in SESSION variables
-                              $_SESSION["loggedin"] = true;
-                              $_SESSION["id"] = $id;
-                              $_SESSION["username"] = $username;
-                              //Redirect to welcome.php
-                              header("Location: php/welcome.php");
+
+                                  session_start();
+                                  // store data in SESSION variables
+                                  $_SESSION["loggedin"] = true;
+                                  $_SESSION["id"] = $id;
+                                  $_SESSION["username"] = $username;
+                                  $_SESSION["name"] = $name;
+                                  //Redirect to welcome.php
+                                  header("Location: php/welcome.php");
+
                           } else {
                               // If password INCORRECT error msg
                               $passworderror = "Password was <b>Incorrect!</b>";

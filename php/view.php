@@ -37,7 +37,7 @@
                         $sql = "SELECT * FROM users";
                         if($result = $pdoConn->query($sql)) {
                             if($result->rowCount() > 0) {
-                                echo '<table class="table table-bordered">';
+                                echo '<table class="table table-bordered table-striped" style="background-color: #dedede">';
                                     echo '<thead class="thead-dark">';
                                         echo '<tr>';
                                             echo '<th scope="col">#</th>';
@@ -52,8 +52,7 @@
                                             echo '<th scope="row">' . $row["userid"] . '</th>';
                                             echo '<td>' . $row["name"] . '</td>';
                                             echo '<td>' . $row["username"] . '</td>';
-                                            echo '<td colspan="2">' . $row["password"] . '</td>';
-                                            echo '<td></td>';
+                                            echo '<td>' . $row["password"] . '</td>';
                                         echo '</tr>';
                                     }
                                     echo '</tbody>';

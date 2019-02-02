@@ -5,7 +5,7 @@
   if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
       header("Location: ../index.php");
       exit;
-  }  
+  }
 ?>
 
 <!DOCTYPE html>
@@ -17,15 +17,15 @@
     <!-- BootStrap 4 CDN CSS external link -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <!-- Custom CSS Link -->
-    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="../css/main.css" />
     <!-- Glyph Icons CSS -->
-    <link rel="stylesheet" href="css/glyphicon.css" />
+    <link rel="stylesheet" href="../css/glyphicon.css" />
 </head>
 <body>
     <header class="container-fluid text-center text-light py-4">
         <div>
             <div class="d-block">
-                <img id="headpic" class="rounded-circle" src="img/Andrew.JPG" />
+                <img id="headpic" class="rounded-circle" src="../img/Andrew.JPG" />
             </div>
             <div>
                 <h1 class="header-text d-inline">PHP BootStrap4 Login - Welcome</h1>
@@ -43,14 +43,21 @@
             </div>
             <div>
                 <p>
-                    Hello, <b><?php echo htmlspecialchars($_SESSION["name"]); ?></b>
+                    Hello, <b>
+                    <?php
+                        if(isset($_SESSION["name"])) {
+                            echo htmlspecialchars($_SESSION["name"]);
+                        } else {
+                            echo htmlspecialchars($_SESSION["username"]);
+                        }
+                    ?></b>
                 </p>
                 <p>
                     You have successfully logged in.
                 </p>
                 <div>
-                    <a href="#" class="btn btn-warning">Reset Password</a>
-                    <a href="#" class="btn btn-danger">Sign out</a>
+                    <a href="passwordreset.php" class="btn btn-warning">Reset Password</a>
+                    <a href="logout.php" class="btn btn-danger">Sign out</a>
                 </div>
             </div>
         </div>
@@ -60,6 +67,5 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>

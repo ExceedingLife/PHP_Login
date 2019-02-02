@@ -93,35 +93,43 @@
         <div class="container rounded contentdiv" id="contentdiv">
             <div class="pb-2 mt-4 mb-2 border-bottom clearfix">
                 <h2>PHP Login Password Reset</h2>
-                <a href="logout.php" class="btn btn-danger float-right">Sign out</a>
-                <a class="btn btn-primary float-right" href="welcome.php">Home</a>
-                <p>Fill out this form to reset your password.</p>
+                <a class="btn btn-primary mx-4" href="welcome.php">Home</a>
+                <a href="logout.php" class="btn btn-danger mx-4">Sign out</a>
+
+
             </div>
-            <form id="formreset" class="rounded" method="post" action="<?php echo
-                  htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                 <fieldset>
-                     <div class="form-group">
-                         <?php if(isset($p1error)) {
-                             echo '<span class="error"<b>' . $p1error . '</b></span>';
-                         } ?>
-                         <label>New Password</label>
-                         <input type="password" id="txtPassword" class="form-control input-lg <?php echo(!empty($p1error)) ? 'is-invalid'
-                             : ''; ?>" name="newPassword" />
-                     </div>
-                     <div class="form-group">
-                         <?php if(isset($p2error)) {
-                             echo '<span class="error"<b>' . $p2error . '</b></span>';
-                         } ?>
-                         <label>Confirm Password</label>
-                         <input type="password" id="txtPassword2" class="form-control input-lg <?php echo(!empty($p2error)) ? 'is-invalid'
-                            : ''; ?>" name="newPassword2" />
-                     </div>
-                     <div class="form-group">
-                         <input type="submit" name="submit" class="btn btn-lg btn-primary" value="Submit" />
-                         <a class="btn btn-lg btn-danger" href="welcome.php">Cancel</a>
-                     </div>
-                 </fieldset>
-            </form>
+            <div class="row">
+                <div class="col-md-6 mx-auto">
+                    <div class="card card-body">
+                        <form id="formreset" class="rounded" method="post" action="<?php echo
+                              htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                             <h4>Fill out this form to reset your password</h4>
+                             <fieldset>
+                                 <div class="form-group">
+                                     <?php if(isset($p1error)) {
+                                         echo '<span class="error"<b>' . $p1error . '</b></span>';
+                                     } ?>
+                                     <input type="password" id="txtPassword" placeholder="New Password" class="form-control input-lg
+                                     <?php echo(!empty($p1error)) ? 'is-invalid' : ''; ?>" name="newPassword" />
+                                 </div>
+                                 <div class="form-group">
+                                     <?php if(isset($p2error)) {
+                                         echo '<span class="error"<b>' . $p2error . '</b></span>';
+                                     } ?>
+                                     <input type="password" id="txtPassword2" placeholder="Confirm Password" class="form-control input-lg
+                                     <?php echo(!empty($p2error)) ? 'is-invalid' : ''; ?>" name="newPassword2" />
+                                 </div>
+                                 <div class="form-group">
+                                     <input type="submit" name="submit" class="btn btn-lg btn-success mx-2" value="Submit" />
+                                     <a class="btn btn-lg btn-danger mx-2" href="welcome.php">Cancel</a>
+                                 </div>
+                             </fieldset>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
 </section>
 

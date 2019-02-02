@@ -2,7 +2,7 @@
 error_reporting(E_ALL);
 ini_set("display_errors", "1");
   // Initialize SESSION
-    session_start();
+    //session_start();
   // Check if logged in ifso sent to Welcome.php
     if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
         header("Location: php/welcome.php");

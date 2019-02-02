@@ -142,33 +142,31 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                             <fieldset>
                                 <div class="form-group">
                                     <?php if(isset($nameerror)) {
-                                        echo '<span id="error"><b>' . $nameerror . '</b></span>';
+                                        echo '<span class="error"><b>' . $nameerror . '</b></span>';
                                     } ?>
                                     <input class="form-control input-lg <?php echo (!empty($nameerror)) ? 'is-invalid'
                                     : ''; ?>" placeholder="Your Name" id="txtName" name="name" type="text">
                                 </div>
                                 <div class="form-group">
                                     <?php if(isset($usernameerror)) {
-                                        echo '<span id="error"><b>' . $usernameerror . '</b></span>';
+                                        echo '<span class="error"><b>' . $usernameerror . '</b></span>';
                                     }?>
                                     <input class="form-control input-lg <?php echo (!empty($usernameerror)) ? 'is-invalid'
                                     : ''; ?>" placeholder="Username" id="txtUsername" name="username" type="text">
                                 </div>
                                 <div class="form-group">
                                     <?php if(isset($passworderror)) {
-                                        echo '<span id="error"><b>' . $passworderror . '</b></span>';
+                                        echo '<span class="error"><b>' . $passworderror . '</b></span>';
                                     }?>
                                     <input class="form-control input-lg <?php echo (!empty($passworderror)) ? 'is-invalid'
-                                    : ''; ?>" placeholder="Password"
-                                           id="txtPassword" name="password" type="password">
+                                    : ''; ?>" placeholder="Password" id="txtPassword" name="password" type="password">
                                 </div>
                                 <div class="form-group">
                                     <?php if(isset($password2error)) {
-                                        echo '<span id="error"><b>' . $password2error . '</b></span>';
+                                        echo '<span class="error"><b>' . $password2error . '</b></span>';
                                     }?>
                                     <input class="form-control input-lg <?php echo (!empty($password2error)) ? 'is-invalid'
-                                    : ''; ?>" placeholder="Confirm Password"
-                                           id="txtPassword2" name="password2" type="password">
+                                    : ''; ?>" placeholder="Confirm Password" id="txtPassword2" name="password2" type="password">
                                 </div>
                                 <div class="form-check">
                                     <input name="form-check-input d-inline" type="checkbox" id="chkTerms" required>
